@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+echo "enter kernel directory"
+cd "$(dirname "$0")"
+
+echo "cleanup kernel"
+fakeroot debian/rules clean
+
+echo "compile kernel"
+fakeroot debian/rules binary-headers binary-generic binary-perarch
+

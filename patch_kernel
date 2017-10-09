@@ -1,0 +1,36 @@
+#!/bin/sh
+
+echo "enter kernel directory"
+cd "$(dirname "$0")"
+
+if [ ! -f ".kernel_patched" ]; then
+  echo "apply patches"
+  for I in ./patchset/*; do
+    patch -p1 <$I;
+  done
+
+  sed -i '/zfs/d' $(find debian.master -type f)
+
+  #find debian.master -name "*generic*" | while read file; do
+  #  cp -v ${file} ${file/generic/gpdpocket}
+  #done
+
+  cat <<EOF >>debian.master/config/config.common.ubuntu
+CONFIG_VBOXGUEST=m
+CONFIG_MUX_INTEL_CHT_USB_MUX=m
+CONFIG_MUX_PI3USB30532=m
+CONFIG_VBOXSF_FS=m
+EOF
+
+  cp changelog debian.master/changelog
+  sed -i 's|^\(CONFIG_DW_DMAC.*=\)m|\1y|g' debian.master/config/config.common.ubuntu
+fi
+
+echo "mark kernel directory patched"
+touch ".kernel_patched"
+
+echo "fix script permissions"
+chmod a+x debian/rules
+chmod a+x debian/scripts/*
+chmod a+x debian/scripts/misc/*
+

@@ -1,0 +1,34 @@
+linux (4.14.0-6.gpd) unstable; urgency=low
+
+  merged recent mainline kernel
+
+linux (4.14.0-5.gpd) unstable; urgency=low
+
+  merged recent mainline kernel
+
+linux (4.14.0-4.gpd) unstable; urgency=low
+
+  merged recent mainline kernel
+
+linux (4.14.0-3.gpd) unstable; urgency=low
+
+  merged recent mainline kernel
+
+linux (4.14.0-1.gpd) unstable; urgency=low
+
+  merged recent changes by jwrdegoede and mainline kernel
+
+linux (4.13.0-3.gpd) unstable; urgency=low
+
+  merged recent changes by jwrdegoede
+
+linux (4.13.0-2.gpd) unstable; urgency=low
+
+  drm-next kernel for pocket
+
+linux (4.13.0-1.gpd) unstable; urgency=low
+
+  Mainline build at commit: v4.13-rc7
+
+ -- Mainline Build <kernel@tangerine>  Sun, 27 Aug 2017 21:31:27 -0400
+
