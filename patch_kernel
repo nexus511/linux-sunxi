@@ -15,15 +15,17 @@ if [ ! -f ".kernel_patched" ]; then
   #  cp -v ${file} ${file/generic/gpdpocket}
   #done
 
-  cat <<EOF >>debian.master/config/config.common.ubuntu
-CONFIG_VBOXGUEST=m
-CONFIG_MUX_INTEL_CHT_USB_MUX=m
-CONFIG_MUX_PI3USB30532=m
-CONFIG_VBOXSF_FS=m
-EOF
-
+#  cat <<EOF >>debian.master/config/config.common.ubuntu
+#CONFIG_VBOXGUEST=m
+#CONFIG_MUX_INTEL_CHT_USB_MUX=m
+#CONFIG_MUX_PI3USB30532=m
+#CONFIG_VBOXSF_FS=m
+#EOF
+#
   cp changelog debian.master/changelog
-  sed -i 's|^\(CONFIG_DW_DMAC.*=\)m|\1y|g' debian.master/config/config.common.ubuntu
+#  cp config_jwrdegoede debian.master/config/config.common.ubuntu
+#  sed -i 's|^\(CONFIG_DW_DMAC.*=\)m|\1y|g' debian.master/config/config.common.ubuntu
+  python2 merge_config
 fi
 
 echo "mark kernel directory patched"

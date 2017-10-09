@@ -1,0 +1,96 @@
+#!/usr/bin/env python
+
+conf_in = "config_patches"
+conf_diff = "config_diff"
+
+def merge_config(conf_out, settings, diff):
+	print "read %s" % (conf_out)
+	fp = open(conf_out, "rb")
+	config = []
+	merged = 0
+	kept = 0
+	for line in fp.readlines():
+		line = line.strip()
+		if line == "":
+			config.append(line)
+			kept += 1
+			continue
+
+		if line.startswith("#"):
+			parts = line.split(" ")
+			if len(parts) > 2 and parts[1].startswith("CONFIG_") and settings.has_key(parts[1]):
+				line = "%s=not set" % (parts[1])
+			else:
+				config.append(line)
+				kept += 1
+				continue
+
+		key, value = line.split("=")
+		if not settings.has_key(key):
+			config.append(line)
+			kept += 1
+			continue
+
+		nval = settings.pop(key)
+		if nval == value:
+			config.append(line)
+			kept += 1
+			continue
+
+		print ">>> update %s: %s -> %s" % (key, value, nval)
+		config.append("%s=%s" % (key, nval))
+		diff[key] = (nval, value)
+		merged += 1
+	print "config created: %d merged, %d kept, %d total" % (merged, kept, len(config))
+
+	print "write %s" % (conf_out)
+	fp = open(conf_out, "wb")
+	for line in config:
+		fp.write("%s\n" % (line))
+	fp.close()
+	return settings, diff
+
+def append_config(conf_out, settings, diff):
+	print "appending values to %s" % (conf_out)
+	fp = open(conf_out, "ab")
+	rc = dict(settings)
+	for key, value in settings.iteritems():
+		print ">>> add %s: %s" % (key, value)
+		fp.write("%s=%s\n" % (key, value))
+		diff[key] = (value, None)
+		rc.pop(key)
+	return rc, diff
+
+# aquire patches
+print "read %s" % (conf_in)
+fp = open(conf_in, "rb")
+settings = {}
+diff = {}
+for line in fp.readlines():
+	line = line.strip()
+	if line.startswith("#") or line == "":
+		continue
+	key, value = line.split("=")
+	settings[key] = value
+for entry in ["CONFIG_HZ", "CONFIG_HZ_1000"]:
+	if settings.has_key(entry):
+		settings.pop(entry)
+
+# patch files
+print "read %d entries from %s" % (len(settings), conf_in)
+settings, diff = merge_config("debian.master/config/config.common.ubuntu", settings, diff)
+print "%d entries remaining" % (len(settings))
+settings, diff = merge_config("debian.master/config/amd64/config.common.amd64", settings, diff)
+print "%d entries remaining" % (len(settings))
+settings, diff = merge_config("debian.master/config/amd64/config.flavour.generic", settings, diff)
+print "%d entries remaining" % (len(settings))
+settings, diff = append_config("debian.master/config/config.common.ubuntu", settings, diff)
+
+print "write %s" % (conf_diff)
+fp = open(conf_diff, "wb")
+for key in sorted(diff.keys()):
+	nval, oval = diff[key]
+	fp.write("%s=%s # %s\n" % (key, nval, oval))
+print "differ in %d entries" % (len(diff))
+fp.close()
+
