@@ -1,7 +1,7 @@
-From 66e1e94f91e566a79a4d7f486ed570e424be671a Mon Sep 17 00:00:00 2001
+From 18d2e73ecabb57ff459835e4d41394d09f586afa Mon Sep 17 00:00:00 2001
 From: Kernel Builder <kernel@gloin.kernel>
-Date: Sun, 1 Oct 2017 19:30:52 -0400
-Subject: [PATCH 3/3] configs (based on Ubuntu-4.14.0-1.2)
+Date: Tue, 10 Oct 2017 00:30:56 -0400
+Subject: [PATCH 3/3] configs (based on Ubuntu-4.14.0-2.3)
 
 ---
  debian.master/config/amd64/config.common.amd64       |  1 -
@@ -9,12 +9,12 @@ Subject: [PATCH 3/3] configs (based on Ubuntu-4.14.0-1.2)
  debian.master/config/amd64/config.flavour.lowlatency |  1 -
  debian.master/config/arm64/config.common.arm64       |  4 +---
  debian.master/config/armhf/config.common.armhf       |  2 --
- debian.master/config/config.common.ubuntu            | 14 ++------------
+ debian.master/config/config.common.ubuntu            | 10 ----------
  debian.master/config/i386/config.common.i386         |  1 -
  debian.master/config/i386/config.flavour.generic     |  1 -
  debian.master/config/i386/config.flavour.lowlatency  |  1 -
  debian.master/config/ppc64el/config.common.ppc64el   |  2 --
- 10 files changed, 3 insertions(+), 25 deletions(-)
+ 10 files changed, 1 insertion(+), 23 deletions(-)
 
 diff --git a/debian.master/config/amd64/config.common.amd64 b/debian.master/config/amd64/config.common.amd64
 index 24802737..d8a0a74 100644
@@ -102,7 +102,7 @@ index 2be1b9b..a769170 100644
  CONFIG_JFS_FS=m
  CONFIG_JME=m
 diff --git a/debian.master/config/config.common.ubuntu b/debian.master/config/config.common.ubuntu
-index 8d30138..c93a0b0 100644
+index 5f5648b..81285a4 100644
 --- a/debian.master/config/config.common.ubuntu
 +++ b/debian.master/config/config.common.ubuntu
 @@ -245,7 +245,6 @@ CONFIG_ALIM1535_WDT=m
@@ -113,27 +113,7 @@ index 8d30138..c93a0b0 100644
  CONFIG_ALPINE_MSI=y
  CONFIG_ALTERA_MBOX=m
  CONFIG_ALTERA_MSGDMA=m
-@@ -1116,7 +1115,6 @@ CONFIG_BT_HS=y
- CONFIG_BT_INTEL=m
- CONFIG_BT_LE=y
- CONFIG_BT_LEDS=y
--CONFIG_BT_LEGACY_IOCTL=y
- CONFIG_BT_MRVL=m
- CONFIG_BT_MRVL_SDIO=m
- CONFIG_BT_QCA=m
-@@ -1834,9 +1832,9 @@ CONFIG_CRYPTO_ECDH=m
- CONFIG_CRYPTO_ECHAINIV=m
- CONFIG_CRYPTO_ENGINE=m
- CONFIG_CRYPTO_FCRYPT=m
--CONFIG_CRYPTO_GCM=m
-+CONFIG_CRYPTO_GCM=y
- CONFIG_CRYPTO_GF128MUL=y
--CONFIG_CRYPTO_GHASH=m
-+CONFIG_CRYPTO_GHASH=y
- CONFIG_CRYPTO_GHASH_ARM64_CE=m
- CONFIG_CRYPTO_GHASH_ARM_CE=m
- CONFIG_CRYPTO_GHASH_CLMUL_NI_INTEL=m
-@@ -2604,7 +2602,6 @@ CONFIG_EEPROM_IDT_89HPESX=m
+@@ -2603,7 +2602,6 @@ CONFIG_EEPROM_IDT_89HPESX=m
  CONFIG_EEPROM_LEGACY=m
  CONFIG_EEPROM_MAX6875=m
  CONFIG_EFIVAR_FS=y
@@ -141,7 +121,7 @@ index 8d30138..c93a0b0 100644
  CONFIG_EFI_ARMSTUB=y
  CONFIG_EFI_BOOTLOADER_CONTROL=m
  CONFIG_EFI_CAPSULE_QUIRK_QUARK_CSH=y
-@@ -2616,8 +2613,6 @@ CONFIG_EFI_PARTITION=y
+@@ -2615,8 +2613,6 @@ CONFIG_EFI_PARTITION=y
  # CONFIG_EFI_PGT_DUMP is not set
  CONFIG_EFI_RUNTIME_MAP=y
  CONFIG_EFI_RUNTIME_WRAPPERS=y
@@ -150,7 +130,7 @@ index 8d30138..c93a0b0 100644
  CONFIG_EFI_STUB=y
  CONFIG_EFI_TEST=m
  CONFIG_EFI_VARS=y
-@@ -4589,7 +4584,6 @@ CONFIG_KGDB_LOW_LEVEL_TRAP=y
+@@ -4588,7 +4584,6 @@ CONFIG_KGDB_LOW_LEVEL_TRAP=y
  CONFIG_KGDB_SERIAL_CONSOLE=y
  # CONFIG_KGDB_TESTS is not set
  CONFIG_KINGSUN_DONGLE=m
@@ -158,7 +138,7 @@ index 8d30138..c93a0b0 100644
  CONFIG_KMX61=m
  CONFIG_KPROBES=y
  CONFIG_KPROBES_ON_FTRACE=y
-@@ -4780,14 +4774,12 @@ CONFIG_LNET=m
+@@ -4779,14 +4774,12 @@ CONFIG_LNET=m
  CONFIG_LNET_MAX_PAYLOAD=1048576
  CONFIG_LNET_SELFTEST=m
  CONFIG_LNET_XPRT_IB=m
@@ -173,7 +153,15 @@ index 8d30138..c93a0b0 100644
  CONFIG_LOCK_SPIN_ON_OWNER=y
  # CONFIG_LOCK_STAT is not set
  # CONFIG_LOCK_TORTURE_TEST is not set
-@@ -7686,7 +7678,6 @@ CONFIG_SECURITY_INFINIBAND=y
+@@ -7212,7 +7205,6 @@ CONFIG_RENESAS_WDT=m
+ # CONFIG_RESET_ATH79 is not set
+ CONFIG_RESET_ATTACK_MITIGATION=y
+ CONFIG_RESET_HISI=y
+-# CONFIG_RESET_HSDK_V1 is not set
+ # CONFIG_RESET_LANTIQ is not set
+ # CONFIG_RESET_LPC18XX is not set
+ # CONFIG_RESET_PISTACHIO is not set
+@@ -7685,7 +7677,6 @@ CONFIG_SECURITY_INFINIBAND=y
  CONFIG_SECURITY_NETWORK=y
  CONFIG_SECURITY_NETWORK_XFRM=y
  CONFIG_SECURITY_PATH=y
@@ -181,7 +169,7 @@ index 8d30138..c93a0b0 100644
  CONFIG_SECURITY_SELINUX=y
  CONFIG_SECURITY_SELINUX_AVC_STATS=y
  CONFIG_SECURITY_SELINUX_BOOTPARAM_VALUE=0
-@@ -9753,7 +9744,6 @@ CONFIG_VCNL4000=m
+@@ -9752,7 +9743,6 @@ CONFIG_VCNL4000=m
  CONFIG_VDSO=y
  CONFIG_VECTORS_BASE=0xffff0000
  CONFIG_VEML6070=m
